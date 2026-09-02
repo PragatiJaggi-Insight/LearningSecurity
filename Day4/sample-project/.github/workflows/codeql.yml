@@ -1,0 +1,36 @@
+# CodeQL CODE SCANNING workflow - runs GitHub's static analysis engine and
+# posts any findings to the Security -> Code scanning alerts tab.
+# Docs: https://docs.github.com/code-security/code-scanning
+name: "CodeQL"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  schedule:
+    - cron: '30 3 * * 1'   # also re-scan every Monday, even if nobody pushed that week
+
+permissions:
+  contents: read
+  security-events: write   # required so CodeQL can upload results to the Security tab
+  actions: read
+
+jobs:
+  analyze:
+    name: Analyze (javascript-typescript)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript-typescript
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Perform CodeQL analysis
+        uses: github/codeql-action/analyze@v3

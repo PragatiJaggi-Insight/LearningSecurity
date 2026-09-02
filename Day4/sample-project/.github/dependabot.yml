@@ -1,0 +1,26 @@
+# Dependabot VERSION UPDATES config - this is what makes Dependabot open PRs
+# to bump outdated dependencies. It does NOT control alerts (those are a
+# separate on/off switch under Settings -> Code security).
+# Docs: https://docs.github.com/code-security/dependabot/dependabot-version-updates
+version: 2
+updates:
+  # --- Keep npm packages (package.json / package-lock.json) up to date ---
+  - package-ecosystem: "npm"
+    directory: "/"                # location of package.json to check
+    schedule:
+      interval: "weekly"          # check once a week instead of on every commit
+      day: "monday"
+    open-pull-requests-limit: 5   # cap how many update PRs can be open at once
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "chore(deps)"       # makes Dependabot's commits easy to spot in history
+
+  # --- Keep the GitHub Actions themselves up to date (e.g. actions/checkout@v4 -> v5) ---
+  - package-ecosystem: "github-actions"
+    directory: "/"                # "/" means look at .github/workflows/*.yml
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "github-actions"

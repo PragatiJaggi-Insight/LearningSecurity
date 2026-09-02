@@ -1,0 +1,10 @@
+{
+  "name": "tasktracker-api-security-demo",
+  "version": "0.1.0",
+  "description": "Copy of the TaskTracker API package.json with a pinned vulnerable dependency, used only to trigger a real Dependabot alert for the Day 4 lab.",
+  "dependencies": {
+    "express": "^4.19.2",
+    "lodash": "4.17.15"
+  },
+  "license": "MIT"
+}

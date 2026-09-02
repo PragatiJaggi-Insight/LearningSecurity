@@ -1,0 +1,7 @@
+# Stage 1: the simplest possible Dependabot config - just says "watch my npm packages weekly".
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
